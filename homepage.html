@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>dailyDATA</title>
+    <link rel="icon" href="LOGO.png" type="image/png" />
+    <link rel="stylesheet" href="styles.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+    <!-- Top Ad Banner -->
+    <div class="top-ad-banner">
+        <img src="TopAdBanner.jpg" alt="Top Advertisement" />
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="logo-container">
+            <h1 class="site-title"><a href="homepage.html">dailyDATA</a></h1>
+            <img src="LOGO.png" alt="Logo" class="logo" />
+        </div>
+        <nav class="navbar">
+            <ul>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="#">People</a></li>
+                <li><a href="terms-of-use.html" class="active">Terms of Use</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Layout -->
+    <div class="container">
+        <div class="main-content">
+            <!-- Title will now be dynamic -->
+            <h2 class="main-title">Loading title...</h2>
+            <div class="date">Loading...</div>
+
+            <!-- Main Figure -->
+            <img src="" alt="Main figure" class="main-figure" />
+            <div class="text">
+                <p>Loading caption...</p>
+            </div>
+        </div>
+
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="prev-figure-container">
+                <h3 class="prev-label">Previous Day's</h3>
+                <img src="" alt="Previous Figure" class="prev-figure" style="display:none; cursor:pointer;" onclick="shiftDate(-1)" />
+            </div>
+            <div class="next-figure-container">
+                <h3 class="next-label">Next Day's</h3>
+                <img src="" alt="Next Figure" class="next-figure" style="display:none; cursor:pointer;" onclick="shiftDate(1)" />
+            </div>
+
+            <!-- Sidebar Ad -->
+            <div class="sidebar-ad">
+                <img src="Ad.jpg" alt="Advertisement" />
+            </div>
+        </aside>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <img src="LOGO.png" alt="Logo Small" class="footer-logo" />
+        <p>&copy; 2025 dailyDATA. All rights reserved.</p>
+    </footer>
+
+    <script>
+        let dataRows = [];
+        let currentIndex = 0;
+
+        // Helper function to generate image URL based on date string
+        function getImageSrc(dateStr) {
+            // Assuming images are in an 'images' folder and extension is .jpg
+            // Example: 2025-09-04.jpg
+            return `Figures/${dateStr}.jpg`;
+        }
+
+        function updateContent() {
+            if (!dataRows.length) return;
+
+            const current = dataRows[currentIndex];
+
+            // Update title
+            document.querySelector('.main-title').textContent = current.title || 'No title available';
+
+            // Update date
+            document.querySelector('.date').textContent = current.date;
+
+            // Update main image
+            const mainImg = document.querySelector('.main-figure');
+            mainImg.src = getImageSrc(current.date);
+            mainImg.alt = `Figure for ${current.date}`;
+            mainImg.onerror = () => {
+                mainImg.alt = "Image failed to load";
+                mainImg.style.display = "none";
+            };
+            mainImg.onload = () => {
+                mainImg.style.display = "block";
+            };
+
+            // Update caption
+            document.querySelector('.text p').textContent = current.caption || 'No caption available.';
+
+            // Previous thumbnail + label
+            const prevImg = document.querySelector('.prev-figure');
+            const prevLabel = document.querySelector('.prev-label');
+            if (currentIndex > 0) {
+                const prev = dataRows[currentIndex - 1];
+                prevImg.src = getImageSrc(prev.date);
+                prevImg.alt = `Previous figure for ${prev.date}`;
+                prevImg.style.display = 'block';
+                prevLabel.style.display = 'block';
+            } else {
+                prevImg.style.display = 'none';
+                prevLabel.style.display = 'none';
+            }
+
+            // Next thumbnail + label
+            const nextImg = document.querySelector('.next-figure');
+            const nextLabel = document.querySelector('.next-label');
+            if (currentIndex < dataRows.length - 1) {
+                const next = dataRows[currentIndex + 1];
+                nextImg.src = getImageSrc(next.date);
+                nextImg.alt = `Next figure for ${next.date}`;
+                nextImg.style.display = 'block';
+                nextLabel.style.display = 'block';
+            } else {
+                nextImg.style.display = 'none';
+                nextLabel.style.display = 'none';
+            }
+        }
+
+        function shiftDate(step) {
+            const newIndex = currentIndex + step;
+            if (newIndex < 0 || newIndex >= dataRows.length) return;
+            currentIndex = newIndex;
+            updateContent();
+        }
+
+        function parseCSV(csvText) {
+            const rows = csvText.trim().split('\n');
+            const headers = rows[0].split(',').map(h => h.trim().toLowerCase());
+
+            return rows.slice(1).map(row => {
+                const values = row.split(',');
+                const entry = {};
+                headers.forEach((header, i) => {
+                    entry[header] = values[i]?.trim();
+                });
+                return entry;
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('dailydata.csv')
+                .then(response => {
+                    if (!response.ok) throw new Error('Failed to load CSV file');
+                    return response.text();
+                })
+                .then(csvText => {
+                    dataRows = parseCSV(csvText);
+
+                    if (!dataRows.length) {
+                        alert("No data found in CSV.");
+                        return;
+                    }
+
+                    // Sort by date
+                    if (dataRows[0].date) {
+                        dataRows.sort((a, b) => new Date(a.date) - new Date(b.date));
+                    }
+
+                    currentIndex = dataRows.length - 1;
+                    updateContent();
+                })
+                .catch(error => {
+                    console.error('Error loading CSV:', error);
+                    alert("Failed to load CSV file.");
+                });
+        });
+    </script>
+</body>
+</html>

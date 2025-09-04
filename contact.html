@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Contact - dailyDATA</title>
+    <link rel="icon" href="LOGO.png" type="image/png" />
+    <link rel="stylesheet" href="styles.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+    <!-- Top Ad Banner -->
+    <div class="top-ad-banner">
+        <img src="TopAdBanner.jpg" alt="Top Advertisement" />
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="logo-container">
+            <h1 class="site-title"><a href="homepage.html">dailyDATA</a></h1>
+            <img src="LOGO.png" alt="Logo" class="logo" />
+        </div>
+        <nav class="navbar">
+            <ul>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="#">People</a></li>
+                <li><a href="terms-of-use.html" class="active">Terms of Use</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Layout -->
+    <div class="container">
+        <div class="main-content">
+            <h2>Contact Us</h2>
+            <p>
+                We’d love to hear from you! Whether you have questions, feedback, or just want to say hello, feel free to reach out.
+            </p>
+
+            <form action="mailto:contact@dailydata.com" method="post" enctype="text/plain" style="max-width: 600px;">
+                <label for="name">Name:</label><br />
+                <input type="text" id="name" name="name" required style="width: 100%; padding: 8px; margin-bottom: 15px;" /><br />
+
+                <label for="email">Email:</label><br />
+                <input type="email" id="email" name="email" required style="width: 100%; padding: 8px; margin-bottom: 15px;" /><br />
+
+                <label for="message">Message:</label><br />
+                <textarea id="message" name="message" rows="6" required style="width: 100%; padding: 8px; margin-bottom: 15px;"></textarea><br />
+
+                <button type="submit" style="padding: 10px 20px; background: #007acc; color: #fff; border: none; border-radius: 6px; cursor: pointer; font-size: 1em;">Send</button>
+            </form>
+        </div>
+
+        <aside class="sidebar">
+            <div class="sidebar-ad">
+                <img src="Ad.jpg" alt="Advertisement" />
+            </div>
+        </aside>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <img src="LOGO.png" alt="Logo Small" class="footer-logo" />
+        <p>&copy; 2025 dailyDATA. All rights reserved.</p>
+    </footer>
+</body>
+</html>

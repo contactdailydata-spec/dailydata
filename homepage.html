@@ -9,11 +9,9 @@
 </head>
 <body>
     <!-- Top Ad Banner -->
-    <!-- 
-    <div class="top-ad-banner">
+<!--     <div class="top-ad-banner">
         <img src="TopAdBanner.jpg" alt="Top Advertisement" />
-    </div> 
-    -->
+    </div> -->
 
     <!-- Header -->
     <header class="header">
@@ -57,11 +55,9 @@
             </div>
 
             <!-- Sidebar Ad -->
-            <!-- 
-            <div class="sidebar-ad">
+<!--             <div class="sidebar-ad">
                 <img src="Ad.jpg" alt="Advertisement" />
-            </div> 
-            -->
+            </div> -->
         </aside>
     </div>
 
@@ -77,7 +73,7 @@
 
         // Helper function to generate image URL based on date string
         function getImageSrc(dateStr) {
-            // Assuming images are in a 'Figures' folder and extension is .jpg
+            // Assuming images are in an 'images' folder and extension is .jpg
             // Example: 2025-09-04.jpg
             return `Figures/${dateStr}.jpg`;
         }
@@ -159,30 +155,30 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSTSP2zkYqFeA9y/pub?output=csv';
-
-            fetch(sheetURL)
+            fetch('dailydata.csv')
                 .then(response => {
-                    if (!response.ok) throw new Error('Failed to load Google Sheet CSV');
+                    if (!response.ok) throw new Error('Failed to load CSV file');
                     return response.text();
                 })
                 .then(csvText => {
                     dataRows = parseCSV(csvText);
 
                     if (!dataRows.length) {
-                        alert("No data found in the sheet.");
+                        alert("No data found in CSV.");
                         return;
                     }
 
-                    // Sort by date ascending
-                    dataRows.sort((a, b) => new Date(a.date) - new Date(b.date));
+                    // Sort by date
+                    if (dataRows[0].date) {
+                        dataRows.sort((a, b) => new Date(a.date) - new Date(b.date));
+                    }
 
                     currentIndex = dataRows.length - 1;
                     updateContent();
                 })
                 .catch(error => {
                     console.error('Error loading CSV:', error);
-                    alert("Failed to load data from Google Sheets.");
+                    alert("Failed to load CSV file.");
                 });
         });
     </script>

@@ -132,9 +132,9 @@ a {
     color: #222;
 }
 
-p {
-    margin-bottom: 16px;
-    font-size: 1em; /* consistent paragraph size */
+p, p strong {
+    font-size: 1em;
+    line-height: 1.7;
 }
 
 /* Sidebar */

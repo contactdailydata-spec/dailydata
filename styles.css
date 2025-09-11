@@ -67,7 +67,7 @@ a {
 /* Main Figure */
 .main-figure {
     width: 100%;        /* scale to container width */
-    max-width: 800px;   /* optional: prevent huge image on large screens */
+    max-width: 800px;   /* prevent huge image on large screens */
     height: auto;       /* maintain aspect ratio */
     display: block;
     margin: 20px 0;     /* spacing around the image */
@@ -261,11 +261,13 @@ p {
         flex-direction: column;
         gap: 10px;
     }
+
+    /* Main figure scales properly */
     .main-figure {
         width: 100%;
-        max-width: 100%; /* do not exceed container width */
+        max-width: 100%;
         height: auto;
-        margin: 15px 0;  /* optional spacing */
+        margin: 15px 0;
     }
 }
 
@@ -311,9 +313,8 @@ p {
     }
 
     .navbar ul {
-        flex-direction: column;
-        gap: 8px;
-        width: 100%;
+        flex-direction: row;
+        flex-wrap: wrap;
     }
 
     .navbar li {
@@ -323,11 +324,5 @@ p {
     .navbar a {
         display: block;
         padding: 6px 0;
-    }
-    .main-figure {
-        width: 100%;
-        max-width: 100%; /* do not exceed container width */
-        height: auto;
-        margin: 15px 0;  /* optional spacing */
     }
 }

@@ -64,6 +64,15 @@ a {
     padding-right: 30px;
 }
 
+/* Main Figure */
+.main-figure {
+    width: 100%;        /* scale to container width */
+    max-width: 800px;   /* optional: prevent huge image on large screens */
+    height: auto;       /* maintain aspect ratio */
+    display: block;
+    margin: 20px 0;     /* spacing around the image */
+}
+
 /* Navigation */
 .navbar {
     display: flex;

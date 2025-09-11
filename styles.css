@@ -1,3 +1,4 @@
+/* Reset */
 * {
     margin: 0;
     padding: 0;
@@ -9,8 +10,11 @@ body {
     font-family: 'Roboto', sans-serif;
     color: #333;
     padding: 3% 15%;
-    font-size: 15px
+    font-size: 16px; /* unified base font size */
+    line-height: 1.7;
 }
+
+/* Top Ad Banner */
 .top-ad-banner {
     position: relative;
     width: 100vw;
@@ -53,7 +57,7 @@ a {
 
 .site-title {
     font-family: 'Courier New', Courier, monospace;
-    font-weight: 100px;
+    font-weight: 100;
     font-size: 36px;
     color: black;
     padding-right: 30px;
@@ -93,26 +97,19 @@ a {
     box-shadow: 0 15px 20px rgba(0, 0, 0, 0.1);
 }
 
+.main-content h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
 .main-content h2 {
     margin-bottom: 10px;
     color: #222;
 }
 
-.date {
-    font-size: 0.9em;
-    color: #888;
-    margin-bottom: 20px;
-}
-
-.main-figure {
-    width: 100%;
-    height: auto;
-    margin-bottom: 20px;
-}
-
 p {
-    line-height: 1.7;
-    font-size: 1.1em;
+    margin-bottom: 16px;
+    font-size: 1em; /* consistent paragraph size */
 }
 
 /* Sidebar */
@@ -150,24 +147,7 @@ p {
     margin-right: 5px;
 }
 
-/* Responsive */
-@media screen and (max-width: 768px) {
-    .container {
-        flex-direction: column;
-    }
-
-    .sidebar {
-        flex-direction: row;
-        overflow-x: auto;
-        gap: 10px;
-    }
-
-    .sidebar img {
-        width: 100px;
-        flex-shrink: 0;
-    }
-}
-
+/* Buttons */
 .nav-buttons {
     display: flex;
     justify-content: space-between;
@@ -185,4 +165,94 @@ p {
 
 .nav-buttons button:hover {
     background: #005e99;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 1024px) {
+    body {
+        font-size: 15px;
+        padding: 3% 8%;
+    }
+
+    .site-title {
+        font-size: 32px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    body {
+        font-size: 14px;
+        padding: 3% 5%;
+    }
+
+    .container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        flex-direction: row;
+        overflow-x: auto;
+        gap: 10px;
+    }
+
+    .sidebar img {
+        width: 100px;
+        flex-shrink: 0;
+    }
+
+    .navbar ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .site-title {
+        font-size: 28px;
+        padding-right: 10px;
+    }
+
+    .main-content h1 {
+        font-size: 1.8em;
+    }
+
+    .main-content h2 {
+        font-size: 1.3em;
+    }
+
+    p {
+        font-size: 0.95em;
+    }
+
+    .nav-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    body {
+        font-size: 13px;
+        padding: 2% 3%;
+    }
+
+    .site-title {
+        font-size: 24px;
+    }
+
+    .main-content h1 {
+        font-size: 1.5em;
+    }
+
+    .main-content h2 {
+        font-size: 1.2em;
+    }
+
+    p {
+        font-size: 0.9em;
+    }
+
+    .nav-buttons button {
+        width: 100%;
+        padding: 12px 0;
+        font-size: 0.95em;
+    }
 }

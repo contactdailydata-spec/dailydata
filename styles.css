@@ -261,6 +261,12 @@ p {
         flex-direction: column;
         gap: 10px;
     }
+    .main-figure {
+        width: 100%;
+        max-width: 100%; /* do not exceed container width */
+        height: auto;
+        margin: 15px 0;  /* optional spacing */
+    }
 }
 
 /* Phones */
@@ -317,5 +323,11 @@ p {
     .navbar a {
         display: block;
         padding: 6px 0;
+    }
+    .main-figure {
+        width: 100%;
+        max-width: 100%; /* do not exceed container width */
+        height: auto;
+        margin: 15px 0;  /* optional spacing */
     }
 }

@@ -313,16 +313,18 @@ p {
     }
 
     .navbar ul {
-        flex-direction: row;
-        flex-wrap: wrap;
+        flex-direction: row;   /* keep in a row */
+        flex-wrap: wrap;       /* allow wrapping if needed */
+        gap: 10px;
     }
 
     .navbar li {
-        width: 100%;
+        width: auto;           /* don't force full width */
     }
 
     .navbar a {
         display: block;
-        padding: 6px 0;
+        padding: 6px 8px;      /* optional spacing */
     }
+
 }

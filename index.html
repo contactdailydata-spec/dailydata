@@ -41,7 +41,9 @@
             <!-- Main Figure -->
             <img src="" alt="Main figure" class="main-figure" />
             <div class="text">
-                <p>Loading caption...</p>
+                <p class="caption">Loading caption...</p>
+                <p class="description">Loading description...</p>
+                <p class="datasource">Loading datasource...</p>
             </div>
         </div>
 
@@ -103,8 +105,10 @@
                 mainImg.style.display = "block";
             };
 
-            // Update caption
-            document.querySelector('.text p').textContent = current.caption || 'No caption available.';
+            // Update caption, description, and datasource
+            document.querySelector('.caption').textContent = current.caption || 'No caption available.';
+            document.querySelector('.description').textContent = current.description || '';
+            document.querySelector('.datasource').textContent = current.datasource ? `Data source: ${current.datasource}` : '';
 
             // Previous thumbnail + label
             const prevImg = document.querySelector('.prev-figure');

@@ -1,3 +1,3 @@
-date,title,caption
-2025-09-12,Unemployment Rate by Age Group Over Years in the U.S.,Did you know that younger people are more likely to be unemployed and that unemployment shot up after the 2008 recession and during the COVID19 pandemic? Graph created using data from the U.S. Bureau of Labor Statistics
-2025-09-11,World Chess Championship Final Results,Did you know that chess championships rarely end in a checkmate? Most games finish with a resignation or draw. Checkmates are surprisingly rare.
+date,title,caption,description,datasource
+2025-09-12,Unemployment Rate by Age Group Over Years in the U.S.,Did you know that younger people are more likely to be unemployed and that unemployment shot up after the 2008 recession and during the COVID19 pandemic? Graph created using data from the U.S. Bureau of Labor Statistics.,test,test
+2025-09-11,World Chess Championship Final Results,Did you know that chess championships rarely end in a checkmate? Most games finish with a resignation or draw. Checkmates are surprisingly rare.,test,test

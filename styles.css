@@ -13,7 +13,9 @@ body {
     font-size: 16px; /* unified base font size */
     line-height: 1.7;
 }
-
+.caption {
+    font-weight: bold;
+}
 /* Top Ad Banner */
 .top-ad-banner {
     position: relative;

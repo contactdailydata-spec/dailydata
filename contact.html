@@ -24,33 +24,25 @@
         <nav class="navbar">
             <ul>
                 <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
                 <li><a href="people.html">People</a></li>
-                <li><a href="terms-of-use.html" class="active">Terms of Use</a></li>
+                <li><a href="terms-of-use.html">Terms of Use</a></li>
             </ul>
         </nav>
     </header>
 
     <!-- Main Layout -->
     <div class="container">
-        <div class="main-content">
+        <div class="main-content" style="text-align:center; padding: 50px 20px;">
             <h2>Contact Us</h2>
             <p>
-                We’d love to hear from you! Whether you have questions, feedback, or just want to say hello, feel free to reach out. If you are expecting a response, please include your email address in your message.
+                We’d love to hear from you! You can reach us directly at:
             </p>
 
-            <form action="mailto:contact@dailydata.com" method="post" enctype="text/plain" style="max-width: 600px;">
-                <label for="name">Name:</label><br />
-                <input type="text" id="name" name="name" required style="width: 100%; padding: 8px; margin-bottom: 15px;" /><br />
-
-                <label for="email">Email:</label><br />
-                <input type="email" id="email" name="email" required style="width: 100%; padding: 8px; margin-bottom: 15px;" /><br />
-
-                <label for="message">Message:</label><br />
-                <textarea id="message" name="message" rows="6" required style="width: 100%; padding: 8px; margin-bottom: 15px;"></textarea><br />
-
-                <button type="submit" style="padding: 10px 20px; background: #007acc; color: #fff; border: none; border-radius: 6px; cursor: pointer; font-size: 1em;">Send</button>
-            </form>
+            <!-- Email Link -->
+            <p style="color: #007acc; font-weight: bold; font-size: 1.2em; margin-top: 20px;">
+                contact@dailydata.com
+            </p>
         </div>
 
 <!--         <aside class="sidebar">
@@ -61,7 +53,7 @@
     </div>
 
     <!-- Footer -->
-    <footer class="footer">
+    <footer class="footer" style="text-align:center; padding: 20px 0;">
         <img src="LOGO.png" alt="Logo Small" class="footer-logo" />
         <p>&copy; 2025 The DailyDATA. All rights reserved.</p>
     </footer>

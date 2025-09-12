@@ -10,6 +10,11 @@
     <meta name="description" content="Get in touch with The DailyDATA. Contact us for questions, feedback, or collaboration opportunities." />
 </head>
 <body>
+    <!-- Top Ad Banner -->
+<!--     <div class="top-ad-banner">
+        <img src="TopAdBanner.jpg" alt="Top Advertisement" />
+    </div> -->
+
     <!-- Header -->
     <header class="header">
         <div class="logo-container">
@@ -19,9 +24,9 @@
         <nav class="navbar">
             <ul>
                 <li><a href="about.html">About</a></li>
-                <li><a href="contact.html" class="active">Contact</a></li>
+                <li><a href="contact.html">Contact</a></li>
                 <li><a href="people.html">People</a></li>
-                <li><a href="terms-of-use.html">Terms of Use</a></li>
+                <li><a href="terms-of-use.html" class="active">Terms of Use</a></li>
             </ul>
         </nav>
     </header>
@@ -31,17 +36,28 @@
         <div class="main-content">
             <h2>Contact Us</h2>
             <p>
-                We’d love to hear from you! Whether you have questions, feedback, or just want to say hello, feel free to reach out. If you are expecting a response, please provide your email address in the message.
+                We’d love to hear from you! Whether you have questions, feedback, or just want to say hello, feel free to reach out. If you are expecting a response, please include your email address in your message.
             </p>
 
-            <!-- Google Form Embed -->
-            <div style="max-width: 600px; margin: auto;">
-                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSe3QPHQ0M3XrbhCCOKH2FhREPwjJWCe3qYmNnfMiVNLi50KRA/viewform?usp=dialog" 
-                        width="100%" height="700" frameborder="0" marginheight="0" marginwidth="0">
-                    Loading…
-                </iframe>
-            </div>
+            <form action="mailto:contact@dailydata.com" method="post" enctype="text/plain" style="max-width: 600px;">
+                <label for="name">Name:</label><br />
+                <input type="text" id="name" name="name" required style="width: 100%; padding: 8px; margin-bottom: 15px;" /><br />
+
+                <label for="email">Email:</label><br />
+                <input type="email" id="email" name="email" required style="width: 100%; padding: 8px; margin-bottom: 15px;" /><br />
+
+                <label for="message">Message:</label><br />
+                <textarea id="message" name="message" rows="6" required style="width: 100%; padding: 8px; margin-bottom: 15px;"></textarea><br />
+
+                <button type="submit" style="padding: 10px 20px; background: #007acc; color: #fff; border: none; border-radius: 6px; cursor: pointer; font-size: 1em;">Send</button>
+            </form>
         </div>
+
+<!--         <aside class="sidebar">
+            <div class="sidebar-ad">
+                <img src="Ad.jpg" alt="Advertisement" />
+            </div>
+        </aside> -->
     </div>
 
     <!-- Footer -->

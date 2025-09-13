@@ -291,11 +291,19 @@ p, p strong {
     .main-content h2 {
         font-size: 1.2em;
     }
+    
+    .sidebar {
+        flex-direction: row;
+        overflow-x: auto;
+        gap: 10px;
+        padding-bottom: 10px;
+    }
+
     .sidebar img {
-    width: auto;
-    max-width: 100px;
-    max-height: 100px;   /* same max height */
-    object-fit: contain; /* fits fully inside */
+        max-height: 100px;   /* keep all thumbnails same height */
+        width: auto;         /* scale width to preserve aspect ratio */
+        flex-shrink: 0;      /* don’t let flexbox squash them */
+        object-fit: contain; /* makes sure the whole image is shown */
     }
 
     p {

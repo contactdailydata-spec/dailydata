@@ -291,11 +291,11 @@ p, p strong {
     .main-content h2 {
         font-size: 1.2em;
     }
-        .sidebar img {
-        width: auto;
-        max-width: 100px;
-        max-height: 100px;   /* same max height */
-        object-fit: contain; /* fits fully inside */
+    .sidebar img {
+    width: auto;
+    max-width: 100px;
+    max-height: 100px;   /* same max height */
+    object-fit: contain; /* fits fully inside */
     }
 
     p {

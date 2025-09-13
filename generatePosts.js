@@ -20,10 +20,30 @@ const dataRows = rows.slice(1).map(row => {
 
 // Generate HTML for each day
 let sitemapEntries = '';
-dataRows.forEach(row => {
-    const date = row.date; // expected format: 2025-09-13
+dataRows.forEach((row, index) => {
+    const date = row.date; // expected format: YYYY-MM-DD
     const fileName = `${date}.html`;
     const filePath = path.join(postsDir, fileName);
+
+    const prevLink =
+        index > 0
+            ? `<div class="prev-figure-container">
+                   <h3 class="prev-label">Previous Day's</h3>
+                   <a href="${dataRows[index - 1].date}.html">
+                       <img src="../Figures/${dataRows[index - 1].date}.png" alt="Previous figure for ${dataRows[index - 1].date}" class="prev-figure" />
+                   </a>
+               </div>`
+            : '';
+
+    const nextLink =
+        index < dataRows.length - 1
+            ? `<div class="next-figure-container">
+                   <h3 class="next-label">Next Day's</h3>
+                   <a href="${dataRows[index + 1].date}.html">
+                       <img src="../Figures/${dataRows[index + 1].date}.png" alt="Next figure for ${dataRows[index + 1].date}" class="next-figure" />
+                   </a>
+               </div>`
+            : '';
 
     const htmlContent = `
 <!DOCTYPE html>
@@ -64,6 +84,11 @@ dataRows.forEach(row => {
                 <p class="datasource">${row.datasource ? `Data source: ${row.datasource}` : ''}</p>
             </div>
         </div>
+
+        <aside class="sidebar">
+            ${prevLink}
+            ${nextLink}
+        </aside>
     </div>
 
     <footer class="footer">

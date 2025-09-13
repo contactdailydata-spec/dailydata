@@ -75,16 +75,6 @@ a {
     margin: 20px 0;     /* spacing around the image */
 }
 
-/* Sidebar thumbnails (Prev & Next) */
-.sidebar img.prev-figure,
-.sidebar img.next-figure {
-    width: 100%;           /* fill the sidebar width */
-    aspect-ratio: 1 / 1;   /* force square shape */
-    object-fit: cover;     /* crop while keeping aspect */
-    height: auto;          /* will respect aspect ratio */
-    display: block;
-}
-
 /* Navigation */
 .navbar {
     display: flex;

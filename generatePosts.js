@@ -26,24 +26,25 @@ dataRows.forEach((row, index) => {
     const filePath = path.join(postsDir, fileName);
 
     const prevLink =
-        index > 0
+        index < dataRows.length - 1
             ? `<div class="prev-figure-container">
-                   <h3 class="prev-label">Previous Day's</h3>
-                   <a href="${dataRows[index - 1].date}.html">
-                       <img src="../Figures/${dataRows[index - 1].date}.png" alt="Previous figure for ${dataRows[index - 1].date}" class="prev-figure" />
-                   </a>
-               </div>`
+                <h3 class="prev-label">Previous Day's</h3>
+                <a href="${dataRows[index + 1].date}.html">
+                    <img src="../Figures/${dataRows[index + 1].date}.png" alt="Previous figure for ${dataRows[index + 1].date}" class="prev-figure" />
+                </a>
+            </div>`
             : '';
 
     const nextLink =
-        index < dataRows.length - 1
+        index > 0
             ? `<div class="next-figure-container">
-                   <h3 class="next-label">Next Day's</h3>
-                   <a href="${dataRows[index + 1].date}.html">
-                       <img src="../Figures/${dataRows[index + 1].date}.png" alt="Next figure for ${dataRows[index + 1].date}" class="next-figure" />
-                   </a>
-               </div>`
+                <h3 class="next-label">Next Day's</h3>
+                <a href="${dataRows[index - 1].date}.html">
+                    <img src="../Figures/${dataRows[index - 1].date}.png" alt="Next figure for ${dataRows[index - 1].date}" class="next-figure" />
+                </a>
+            </div>`
             : '';
+
 
     const htmlContent = `
 <!DOCTYPE html>

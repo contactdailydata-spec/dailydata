@@ -1,8 +1,11 @@
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
+
 const csvFile = 'dailydata.csv';
 const postsDir = path.join(__dirname, 'posts');
 const sitemapFile = path.join(__dirname, 'sitemap.xml');
+const stateFile = path.join(__dirname, 'lastProcessed.json');
 
 // Ensure posts folder exists
 if (!fs.existsSync(postsDir)) fs.mkdirSync(postsDir);
@@ -18,7 +21,18 @@ const dataRows = rows.slice(1).map(row => {
     return entry;
 });
 
-// Generate HTML for each day
+// Helper: hash content
+function hashContent(content) {
+    return crypto.createHash('md5').update(content).digest('hex');
+}
+
+// Load state (last processed date + hashes)
+let state = { lastDate: null, hashes: {} };
+if (fs.existsSync(stateFile)) {
+    state = JSON.parse(fs.readFileSync(stateFile, 'utf8'));
+}
+
+// Generate HTML for each row
 let sitemapEntries = '';
 dataRows.forEach((row, index) => {
     const date = row.date; // expected format: YYYY-MM-DD
@@ -44,7 +58,6 @@ dataRows.forEach((row, index) => {
                 </a>
             </div>`
             : '';
-
 
     const htmlContent = `
 <!DOCTYPE html>
@@ -100,8 +113,16 @@ dataRows.forEach((row, index) => {
 </html>
 `;
 
-    fs.writeFileSync(filePath, htmlContent);
-    console.log(`Generated: ${fileName}`);
+    const newHash = hashContent(htmlContent);
+
+    // Skip if file exists and hash matches
+    if (fs.existsSync(filePath) && state.hashes[fileName] === newHash) {
+        console.log(`Unchanged, skipped: ${fileName}`);
+    } else {
+        fs.writeFileSync(filePath, htmlContent);
+        state.hashes[fileName] = newHash;
+        console.log(`Generated/Updated: ${fileName}`);
+    }
 
     // Add to sitemap
     sitemapEntries += `
@@ -113,7 +134,7 @@ dataRows.forEach((row, index) => {
    </url>`;
 });
 
-// Generate sitemap.xml
+// Generate sitemap.xml (always, since it’s small)
 const sitemapContent = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <url>
@@ -128,3 +149,7 @@ const sitemapContent = `<?xml version="1.0" encoding="UTF-8"?>
 
 fs.writeFileSync(sitemapFile, sitemapContent);
 console.log('Sitemap generated: sitemap.xml');
+
+// Save state (last date + hashes)
+state.lastDate = dataRows[dataRows.length-1].date;
+fs.writeFileSync(stateFile, JSON.stringify(state, null, 2));

@@ -92,10 +92,15 @@ dataRows.forEach((row, index) => {
             <img src="../Figures/${date}.png" alt="Figure for ${date}" class="main-figure" />
             <div class="text">
                 <p class="caption">${row.caption || ''}</p>
+                <br />
                 <hr />
+                <br />
                 <p class="description">${row.description || ''}</p>
+                <br />
                 <hr />
+                <br />
                 <p class="datasource">${row.datasource ? `Data source: ${row.datasource}` : ''}</p>
+                <br />
                 <hr />
                 <br />
                 <p><strong>Please note that we created these figures to be as accurate as possible, but they have not been formally peer reviewed and should not be considered definitive scholarly work</strong></p>

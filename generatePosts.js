@@ -96,6 +96,9 @@ dataRows.forEach((row, index) => {
                 <p class="description">${row.description || ''}</p>
                 <hr />
                 <p class="datasource">${row.datasource ? `Data source: ${row.datasource}` : ''}</p>
+                <hr />
+                <br />
+                <p><strong>Please note that we created these figures to be as accurate as possible, but they have not been published in peer reviewed journals, so they have not been formally reviewed by experts in the field.</strong></p>
             </div>
         </div>
 

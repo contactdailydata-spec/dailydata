@@ -139,6 +139,10 @@ p, p strong {
     line-height: 1.7;
 }
 
+.disclaimer {
+    font-size: 0.75em
+}
+
 /* Sidebar */
 .sidebar {
     flex: 1;

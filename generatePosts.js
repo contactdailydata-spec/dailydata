@@ -59,12 +59,16 @@ dataRows.forEach((row, index) => {
             </div>`
             : '';
 
-    const htmlContent = `
-<!DOCTYPE html>
+    // Updated HTML template with favicon included
+    const htmlContent = `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
     <title>${row.title || 'The DailyDATA'} - ${date}</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="../LOGO.png" type="image/png" />
+
     <link rel="stylesheet" href="../styles.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="${row.description || ''}" />
@@ -114,8 +118,7 @@ dataRows.forEach((row, index) => {
         <p>&copy; 2025 The DailyDATA. All rights reserved.</p>
     </footer>
 </body>
-</html>
-`;
+</html>`;
 
     const newHash = hashContent(htmlContent);
 
@@ -138,7 +141,7 @@ dataRows.forEach((row, index) => {
    </url>`;
 });
 
-// Generate sitemap.xml (always, since it’s small)
+// Generate sitemap.xml
 const sitemapContent = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <url>
@@ -154,6 +157,6 @@ const sitemapContent = `<?xml version="1.0" encoding="UTF-8"?>
 fs.writeFileSync(sitemapFile, sitemapContent);
 console.log('Sitemap generated: sitemap.xml');
 
-// Save state (last date + hashes)
+// Save state
 state.lastDate = dataRows[dataRows.length-1].date;
 fs.writeFileSync(stateFile, JSON.stringify(state, null, 2));

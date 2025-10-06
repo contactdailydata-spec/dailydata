@@ -45,12 +45,6 @@
                 <br />
                 <p class="disclaimer"><strong>*These figures have not yet been formally peer reviewed and are intended as exploratory</strong></p>
             </div>
-
-            <!-- Optional Prev/Next Buttons below main figure -->
-            <div class="nav-buttons">
-                <button id="prev-button" style="display:none;">Previous Day</button>
-                <button id="next-button" style="display:none;">Next Day</button>
-            </div>
         </div>
 
         <!-- Sidebar Navigation -->
@@ -104,7 +98,6 @@
             // Previous thumbnail + link
             const prevImg = document.querySelector('.prev-figure');
             const prevLabel = document.querySelector('.prev-label');
-            const prevButton = document.getElementById('prev-button');
             if (currentIndex > 0) {
                 const prev = dataRows[currentIndex - 1];
                 prevImg.src = getImageSrc(prev.date);
@@ -112,18 +105,14 @@
                 prevImg.style.display = 'block';
                 prevLabel.style.display = 'block';
                 prevImg.onclick = () => { window.location.href = `posts/${prev.date}.html`; };
-                prevButton.style.display = 'inline-block';
-                prevButton.onclick = () => { window.location.href = `posts/${prev.date}.html`; };
             } else {
                 prevImg.style.display = 'none';
                 prevLabel.style.display = 'none';
-                prevButton.style.display = 'none';
             }
 
             // Next thumbnail + link
             const nextImg = document.querySelector('.next-figure');
             const nextLabel = document.querySelector('.next-label');
-            const nextButton = document.getElementById('next-button');
             if (currentIndex < dataRows.length - 1) {
                 const next = dataRows[currentIndex + 1];
                 nextImg.src = getImageSrc(next.date);
@@ -131,12 +120,9 @@
                 nextImg.style.display = 'block';
                 nextLabel.style.display = 'block';
                 nextImg.onclick = () => { window.location.href = `posts/${next.date}.html`; };
-                nextButton.style.display = 'inline-block';
-                nextButton.onclick = () => { window.location.href = `posts/${next.date}.html`; };
             } else {
                 nextImg.style.display = 'none';
                 nextLabel.style.display = 'none';
-                nextButton.style.display = 'none';
             }
         }
 

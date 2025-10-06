@@ -26,16 +26,16 @@ function hashContent(content) {
     return crypto.createHash('md5').update(content).digest('hex');
 }
 
-// Load state (last processed date + hashes)
+// Load state
 let state = { lastDate: null, hashes: {} };
 if (fs.existsSync(stateFile)) {
     state = JSON.parse(fs.readFileSync(stateFile, 'utf8'));
 }
 
-// Generate HTML for each row
+// Generate HTML for each post
 let sitemapEntries = '';
 dataRows.forEach((row, index) => {
-    const date = row.date; // expected format: YYYY-MM-DD
+    const date = row.date;
     const fileName = `${date}.html`;
     const filePath = path.join(postsDir, fileName);
 
@@ -59,16 +59,12 @@ dataRows.forEach((row, index) => {
             </div>`
             : '';
 
-    // Updated HTML template with favicon included
     const htmlContent = `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
     <title>${row.title || 'The DailyDATA'} - ${date}</title>
-
-    <!-- Favicon -->
     <link rel="icon" href="../LOGO.png" type="image/png" />
-
     <link rel="stylesheet" href="../styles.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="${row.description || ''}" />
@@ -103,7 +99,7 @@ dataRows.forEach((row, index) => {
                 <br />
                 <p class="datasource">${row.datasource ? `Data source: ${row.datasource}` : ''}</p>
                 <br />
-                <p><strong>Please note that we created these figures to be as accurate as possible, but they have not been formally peer reviewed and should not be considered definitive scholarly work</strong></p>
+                <p class="disclaimer"><strong>*These figures have not yet been formally peer reviewed and are intended as exploratory</strong></p>
             </div>
         </div>
 
@@ -122,7 +118,6 @@ dataRows.forEach((row, index) => {
 
     const newHash = hashContent(htmlContent);
 
-    // Skip if file exists and hash matches
     if (fs.existsSync(filePath) && state.hashes[fileName] === newHash) {
         console.log(`Unchanged, skipped: ${fileName}`);
     } else {
@@ -131,7 +126,6 @@ dataRows.forEach((row, index) => {
         console.log(`Generated/Updated: ${fileName}`);
     }
 
-    // Add to sitemap
     sitemapEntries += `
    <url>
       <loc>https://thedailydata.org/posts/${fileName}</loc>
@@ -141,7 +135,6 @@ dataRows.forEach((row, index) => {
    </url>`;
 });
 
-// Generate sitemap.xml
 const sitemapContent = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
    <url>
@@ -157,6 +150,5 @@ const sitemapContent = `<?xml version="1.0" encoding="UTF-8"?>
 fs.writeFileSync(sitemapFile, sitemapContent);
 console.log('Sitemap generated: sitemap.xml');
 
-// Save state
 state.lastDate = dataRows[dataRows.length-1].date;
 fs.writeFileSync(stateFile, JSON.stringify(state, null, 2));

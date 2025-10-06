@@ -10,11 +10,6 @@
     <meta name="description" content="The DailyDATA delivers clear, insightful stories from data, turning numbers into knowledge every single day." />
 </head>
 <body>
-    <!-- Top Ad Banner -->
-<!--     <div class="top-ad-banner">
-        <img src="TopAdBanner.jpg" alt="Top Advertisement" />
-    </div> -->
-
     <!-- Header -->
     <header class="header">
         <div class="logo-container">
@@ -34,7 +29,6 @@
     <!-- Main Layout -->
     <div class="container">
         <div class="main-content">
-            <!-- Title will now be dynamic -->
             <h2 class="main-title">Loading title...</h2>
             <div class="date">Loading...</div>
 
@@ -51,23 +45,24 @@
                 <br />
                 <p class="disclaimer"><strong>*These figures have not yet been formally peer reviewed and are intended as exploratory</strong></p>
             </div>
+
+            <!-- Optional Prev/Next Buttons below main figure -->
+            <div class="nav-buttons">
+                <button id="prev-button" style="display:none;">Previous Day</button>
+                <button id="next-button" style="display:none;">Next Day</button>
+            </div>
         </div>
 
         <!-- Sidebar Navigation -->
         <aside class="sidebar">
             <div class="prev-figure-container">
                 <h3 class="prev-label">Previous Day's</h3>
-                <img src="" alt="Previous Figure" class="prev-figure" style="display:none; cursor:pointer;" onclick="shiftDate(-1)" />
+                <img src="" alt="Previous Figure" class="prev-figure" style="display:none; cursor:pointer;" />
             </div>
             <div class="next-figure-container">
                 <h3 class="next-label">Next Day's</h3>
-                <img src="" alt="Next Figure" class="next-figure" style="display:none; cursor:pointer;" onclick="shiftDate(1)" />
+                <img src="" alt="Next Figure" class="next-figure" style="display:none; cursor:pointer;" />
             </div>
-
-            <!-- Sidebar Ad -->
-<!--             <div class="sidebar-ad">
-                <img src="Ad.jpg" alt="Advertisement" />
-            </div> -->
         </aside>
     </div>
 
@@ -81,10 +76,7 @@
         let dataRows = [];
         let currentIndex = 0;
 
-        // Helper function to generate image URL based on date string
         function getImageSrc(dateStr) {
-            // Assuming images are in an 'images' folder and extension is .png
-            // Example: 2025-09-04.png
             return `Figures/${dateStr}.png`;
         }
 
@@ -93,75 +85,68 @@
 
             const current = dataRows[currentIndex];
 
-            // Update title
+            // Update title and date
             document.querySelector('.main-title').textContent = current.title || 'No title available';
-
-            // Update date
             document.querySelector('.date').textContent = current.date;
 
             // Update main image
             const mainImg = document.querySelector('.main-figure');
             mainImg.src = getImageSrc(current.date);
             mainImg.alt = `Figure for ${current.date}`;
-            mainImg.onerror = () => {
-                mainImg.alt = "Image failed to load";
-                mainImg.style.display = "none";
-            };
-            mainImg.onload = () => {
-                mainImg.style.display = "block";
-            };
+            mainImg.onerror = () => { mainImg.alt = "Image failed to load"; mainImg.style.display = "none"; };
+            mainImg.onload = () => { mainImg.style.display = "block"; };
 
-            // Update caption, description, and datasource
+            // Update text
             document.querySelector('.caption').textContent = current.caption || 'No caption available.';
             document.querySelector('.description').textContent = current.description || '';
             document.querySelector('.datasource').textContent = current.datasource ? `Data source: ${current.datasource}` : '';
 
-            // Previous thumbnail + label
+            // Previous thumbnail + link
             const prevImg = document.querySelector('.prev-figure');
             const prevLabel = document.querySelector('.prev-label');
+            const prevButton = document.getElementById('prev-button');
             if (currentIndex > 0) {
                 const prev = dataRows[currentIndex - 1];
                 prevImg.src = getImageSrc(prev.date);
                 prevImg.alt = `Previous figure for ${prev.date}`;
                 prevImg.style.display = 'block';
                 prevLabel.style.display = 'block';
+                prevImg.onclick = () => { window.location.href = `posts/${prev.date}.html`; };
+                prevButton.style.display = 'inline-block';
+                prevButton.onclick = () => { window.location.href = `posts/${prev.date}.html`; };
             } else {
                 prevImg.style.display = 'none';
                 prevLabel.style.display = 'none';
+                prevButton.style.display = 'none';
             }
 
-            // Next thumbnail + label
+            // Next thumbnail + link
             const nextImg = document.querySelector('.next-figure');
             const nextLabel = document.querySelector('.next-label');
+            const nextButton = document.getElementById('next-button');
             if (currentIndex < dataRows.length - 1) {
                 const next = dataRows[currentIndex + 1];
                 nextImg.src = getImageSrc(next.date);
                 nextImg.alt = `Next figure for ${next.date}`;
                 nextImg.style.display = 'block';
                 nextLabel.style.display = 'block';
+                nextImg.onclick = () => { window.location.href = `posts/${next.date}.html`; };
+                nextButton.style.display = 'inline-block';
+                nextButton.onclick = () => { window.location.href = `posts/${next.date}.html`; };
             } else {
                 nextImg.style.display = 'none';
                 nextLabel.style.display = 'none';
+                nextButton.style.display = 'none';
             }
-        }
-
-        function shiftDate(step) {
-            const newIndex = currentIndex + step;
-            if (newIndex < 0 || newIndex >= dataRows.length) return;
-            currentIndex = newIndex;
-            updateContent();
         }
 
         function parseCSV(csvText) {
             const rows = csvText.trim().split('\n');
             const headers = rows[0].split(',').map(h => h.trim().toLowerCase());
-
             return rows.slice(1).map(row => {
                 const values = row.split(',');
                 const entry = {};
-                headers.forEach((header, i) => {
-                    entry[header] = values[i]?.trim();
-                });
+                headers.forEach((header, i) => { entry[header] = values[i]?.trim(); });
                 return entry;
             });
         }
@@ -174,24 +159,12 @@
                 })
                 .then(csvText => {
                     dataRows = parseCSV(csvText);
-
-                    if (!dataRows.length) {
-                        alert("No data found in CSV.");
-                        return;
-                    }
-
-                    // Sort by date
-                    if (dataRows[0].date) {
-                        dataRows.sort((a, b) => new Date(a.date) - new Date(b.date));
-                    }
-
+                    if (!dataRows.length) { alert("No data found in CSV."); return; }
+                    if (dataRows[0].date) dataRows.sort((a, b) => new Date(a.date) - new Date(b.date));
                     currentIndex = dataRows.length - 1;
                     updateContent();
                 })
-                .catch(error => {
-                    console.error('Error loading CSV:', error);
-                    alert("Failed to load CSV file.");
-                });
+                .catch(error => { console.error('Error loading CSV:', error); alert("Failed to load CSV file."); });
         });
     </script>
 </body>
